@@ -57,6 +57,7 @@ class Approximation():
             graph = self.computeGraph(edgeInformation)
             clusterMidpoints = self.computeMinimumEdgeCover(graph)
             if len(clusterMidpoints) <= self.__I.getNumberOfClusterCenters():
+                clusterMidpoints = self.sortClusterMidpoints(clusterMidpoints)
                 self.__approximationMidpoints = [edgeInformation[e] for e in clusterMidpoints]
                 self.__approximationRadius = r
                 
@@ -77,6 +78,7 @@ class Approximation():
             if len(cf) == 1:
                 edgeInformation[(cf[0], cf[0])] = f
             elif len(cf) == 2:
+                cf.sort(key=lambda x: id(x))
                 edgeInformation[(cf[0], cf[1])] = f
         return edgeInformation
 
@@ -95,4 +97,10 @@ class Approximation():
 
     def computeMinimumEdgeCover(self, G):
         return nx.algorithms.covering.min_edge_cover(G)
-        
+
+    def sortClusterMidpoints(self, clusterMidpoints):
+        temp = [list(cm) for cm in clusterMidpoints]
+        for cm in temp:
+            cm.sort(key=lambda x: id(x))
+        return [tuple(cm) for cm in temp]
+            
