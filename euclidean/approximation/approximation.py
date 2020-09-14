@@ -1,3 +1,5 @@
+import networkx as nx
+
 from instance import Instance
 from point import Point
 from euclideanDistance import distance, setDistance as d, ds
@@ -51,12 +53,13 @@ class Approximation():
     def findSmallestCoverForRadius(self, r):
         maximalClientSubset = self.pickMaximalClientSubset(r)
         edgeInformation = self.computeEdgeInformation(maximalClientSubset, r)
-        graph = self.computeGraph(maximalClientSubset, edgeInformation)
-        clusterMidpoints = self.computeMinimumEdgeCover(graph)
-        if len(clustermidpoins) <= self.__I.getNumberOfClusterCenters():
-            self.__approximationMidpoints = [edgeInformation(e) for e in clusterMidpoints]
-            self.__approximationRadius = r
-
+        if(self.verifyACoveringExists(maximalClientSubset, edgeInformation)):
+            graph = self.computeGraph(edgeInformation)
+            clusterMidpoints = self.computeMinimumEdgeCover(graph)
+            if len(clustermidpoins) <= self.__I.getNumberOfClusterCenters():
+                self.__approximationMidpoints = [edgeInformation(e) for e in clusterMidpoints]
+                self.__approximationRadius = r
+                
     def pickMaximalClientSubset(self, r):
         clients = list(self.__I.clients())
         maximalSubset = []
@@ -77,12 +80,19 @@ class Approximation():
                 edgeInformation[(cf[0], cf[1])] = f
         return edgeInformation
 
-    def computeGraph(self, clients, edgeInformation):
-        V = clients
-        E = list(edgeInformation.keys())
-        return (V, E)
+    def verifyACoveringExists(self, clients, edgeInformation):
+        keys = list(edgeInformation.keys())
+        includedClients = []
+        for (a,b) in keys:
+            includedClients += [a,b]
+        return set(clients) == set(includedClients)
 
-    def computeMinimumEdgeCover(graph):
-        #Todo: Find good algorithm
-        pass
+    def computeGraph(self, clients, edgeInformation):
+        E = list(edgeInformation.keys())
+        G = nx.Graph()
+        G.add_edges_from(E)
+        return G
+
+    def computeMinimumEdgeCover(G):
+        return nx.algorithms.covering.min_edge_cover(G)
         
