@@ -1,8 +1,8 @@
 import networkx as nx
 
-from instance import Instance
-from point import Point
-from euclideanDistance import distance, setDistance as d, ds
+from euclidean.instance import Instance
+from euclidean.point import Point
+from euclidean.euclideanMetric import distance as d
 
 class Approximation():
     def __init__(self, I: Instance):
