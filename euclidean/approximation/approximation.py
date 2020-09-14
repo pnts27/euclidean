@@ -40,12 +40,12 @@ class Approximation():
         left = 0
         right = len(radiuses)-1
 
-        while(left != right):
+        while left != right:
             current = (left+right) // 2
             r = radiuses[current]
             self.findSmallestCoverForRadius(r)
             
-            if(self.__approximationRadius == r):
+            if self.__approximationRadius == r:
                 right = current-1
             else:
                 left = current+1
@@ -53,7 +53,7 @@ class Approximation():
     def findSmallestCoverForRadius(self, r):
         maximalClientSubset = self.pickMaximalClientSubset(r)
         edgeInformation = self.computeEdgeInformation(maximalClientSubset, r)
-        if(self.verifyACoveringExists(maximalClientSubset, edgeInformation)):
+        if self.verifyACoveringExists(maximalClientSubset, edgeInformation):
             graph = self.computeGraph(edgeInformation)
             clusterMidpoints = self.computeMinimumEdgeCover(graph)
             if len(clustermidpoins) <= self.__I.getNumberOfClusterCenters():
