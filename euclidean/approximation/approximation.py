@@ -73,7 +73,7 @@ class Approximation():
         facilities = list(self.__I.facilities())
         edgeInformation = {}
         for f in facilities:
-            cf = [c in clients if d(c,f) <= r]
+            cf = [c for c in clients if d(c,f) <= r]
             if len(cf) == 1:
                 edgeInformation[(cf[0], cf[0])] = f
             elif len(cf) == 2:
