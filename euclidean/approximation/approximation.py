@@ -20,7 +20,7 @@ class Approximation():
         for f in self.__approximationMidpoints:
             yield f
 
-    def getApproximationRadis(self):
+    def getApproximationRadius(self):
         return self.__approximationRadius
 
     def approximate(self):
@@ -32,7 +32,7 @@ class Approximation():
     def computeOptimalRadiusCandidates(self):
         return list(set([d(c,f)
          for c in self.__I.clients()
-         for f in self.__I-facilities()]))
+         for f in self.__I.facilities()]))
          
     def findSmallestAppoximationRadius(self):
         # Binary search
