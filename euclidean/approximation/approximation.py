@@ -37,17 +37,25 @@ class Approximation():
     def findSmallestApproximationRadius(self):
         # Binary search
         radiuses = self.__optimalCandidateRadiuses
-        left = 0
-        right = len(radiuses)-1        
+        # Binary search
+        # left = 0
+        # right = len(radiuses)-1
 
-        while left < right:
-            current = (left+right) // 2
-            r = radiuses[current]
+        # while left < right:
+        #     current = (left+right) // 2
+        #     r = radiuses[current]
+        #     self.findSmallestCoverForRadius(r)
+        #     if self.__approximationRadius == r:
+        #         right = current-1
+        #     else:
+        #         left = current+1
+
+        # Linear search:
+        for r in radiuses:
             self.findSmallestCoverForRadius(r)
             if self.__approximationRadius == r:
-                right = current-1
-            else:
-                left = current+1
+                return
+        
             
     def findSmallestCoverForRadius(self, r):
         maximalClientSubset = self.pickMaximalClientSubset(r)
