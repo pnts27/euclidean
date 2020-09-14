@@ -17,10 +17,11 @@ def facility_locs():
 if __name__ == "__main__":
     c = client_locs()
     f = facility_locs()
-    k = 7
+    k = 10
 
     I = Instance(c,f,k)
     A = Approximation(I)
 
-    print(A.approximationRadius())
-    print(A.getApproximationMidpoints())
+    print("Approximation radius: ", A.getApproximationRadius())
+    print("Approximation midpoints: ")
+    print(str(A.getApproximationMidpoints()))
