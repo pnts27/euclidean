@@ -42,6 +42,9 @@ class Approximation():
         left = 0
         right = len(radiuses)-1
 
+        # May miss a case where only the largest
+        # radius is feasible, when (a+b)//2 = a
+        # but b = a+1 is the correct radius index
         while left < right:
             current = (left+right) // 2
             r = radiuses[current]
