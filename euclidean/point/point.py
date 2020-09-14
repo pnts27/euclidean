@@ -8,3 +8,6 @@ class Point():
     def coordiantes(self):
         for coord in self.__pos:
             yield coord
+
+    def __repr__(self):
+        return str(self.__pos)
