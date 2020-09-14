@@ -2,8 +2,8 @@ from collections.abc import Iterable
 
 class Instance():
     def __init__(self,
-                 clients: Iterable,
-                 facilities: Iterable,
+                 clients: Iterable, # Points
+                 facilities: Iterable, # Points
                  k: int):
         self.__c = set(clients)
         self.__f = set(facilities)
