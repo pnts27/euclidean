@@ -40,15 +40,15 @@ class Approximation():
         left = 0
         right = len(radiuses)-1        
 
-        while left != right:
+        while left < right:
             current = (left+right) // 2
             r = radiuses[current]
             self.findSmallestCoverForRadius(r)
-            
             if self.__approximationRadius == r:
                 right = current-1
             else:
                 left = current+1
+            
 
     def findSmallestCoverForRadius(self, r):
         maximalClientSubset = self.pickMaximalClientSubset(r)
