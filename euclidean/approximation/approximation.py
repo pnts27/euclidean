@@ -49,7 +49,6 @@ class Approximation():
             else:
                 left = current+1
             
-
     def findSmallestCoverForRadius(self, r):
         maximalClientSubset = self.pickMaximalClientSubset(r)
         edgeInformation = self.computeEdgeInformation(maximalClientSubset, r)
