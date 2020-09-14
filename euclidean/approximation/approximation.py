@@ -1,5 +1,7 @@
 import networkx as nx
 
+from math import sqrt
+
 from euclidean.instance import Instance
 from euclidean.point import Point
 from euclidean.euclideanMetric import distance as d
@@ -41,7 +43,6 @@ class Approximation():
             if self.__approximationRadius == r:
                 return
         
-            
     def findSmallestCoverForRadius(self, r):
         maximalClientSubset = self.pickMaximalClientSubset(r)
         edgeInformation = self.computeEdgeInformation(maximalClientSubset, r)
@@ -59,7 +60,7 @@ class Approximation():
         while len(clients) > 0:
             c = clients[0]
             maximalSubset += [c]
-            clients = [cc for cc in clients if d(c, cc) > r]
+            clients = [cc for cc in clients if d(c, cc) > sqrt(3)*r]
         return maximalSubset
 
     def computeEdgeInformation(self, clients, r):
